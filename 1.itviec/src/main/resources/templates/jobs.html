@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: head('Trang chủ')">
+<body>
+<header>
+    <div class="wide">
+        <div class="header-content">
+            <div class="header-nav">
+                <a href="/"> <p th:text="#{home}"></p></a>
+                <a href="/jobs"> <p th:text="#{jobs}"></p></a>
+                <a href="/employers"> <p th:text="#{companies}"></p></a>
+            </div>
+
+            <div class="header-content-right">
+                <div class="search">
+                    <form action="" th:action="@{/jobs}" method="get">
+                        <input type="text" placeholder="keyword" name="keyword"/>
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                <div class="language">
+                    <img src="/img/vi_flag.png" alt="" onclick="window.location.href='jobs?lang=vn'">
+                    <img src="/img/us_flag.png" alt="" onclick="window.location.href='jobs?lang=en'">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>
+<div class="jobs">
+    <div class="select-form">
+        <div class="wide">
+            <form action="" th:action="@{/jobs}" method="get">
+                <label for="c-type" th:text="#{skill}">Kỹ năng</label>
+                <select name="skill" id="c-type">
+                    <option value="0">Tất cả</option>
+                    <option th:each="skill : ${skills}"
+                            th:text="${skill.skillType}"
+                            th:value="${skill.name}">Outsourcing</option>
+                </select>
+                <label for="c-location" th:text="#{location}">Nơi làm việc</label>
+                <select name="location" id="c-location">
+                    <option value="0">Tất cả</option>
+                    <option th:each="location: ${locations}"
+                            th:text="${location.address}"
+                            th:value="${location.name}">Hà Nội</option>
+                    <!--          <option value="hanoi">Hà Nội</option>-->
+                    <!--          <option value="hochiminh">Hồ Chí Minh</option>-->
+                </select>
+                <!--        <a href="@{/employers(company-type=${request.type}&company-location=${request.location})"></a>-->
+                <button type="submit"><i class="bi bi-funnel"></i></button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="wide">
+            <div class="add-btn"><a href="/jobs/add">Thêm công việc</a></div>
+            <table>
+                <thead>
+                <tr>
+                    <th th:text="#{no}">STT</th>
+                    <th th:text="#{title}">Tiêu đề</th>
+                    <th th:text="#{companyName}">Công ty</th>
+                    <th th:text="#{skill}">Kỹ năng</th>
+                    <th th:text="#{location}">Địa điểm làm việc</th>
+                    <th th:text="#{salary}">Mức lương</th>
+                    <th th:text="#{jobdesc}">Mô tả công việc</th>
+                    <th th:text="#{other}">Khác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="job, iState : ${jobs}">
+                    <td th:text="${iState.index}+1" class="number">1</td>
+                    <td th:text="${job.title}" class="job-title">FPT software</td>
+                    <td th:text="${job.companyName}" class="company-name">FPT software</td>
+                    <td th:text="${job.skills.toString()}" class="job-skill">Product</td>
+                    <td th:text="${job.locations.toString()}" class="job-location">Hà Nội, Hồ Chí Minh</td>
+                    <td th:text="${'$'+job.minSalary + ' - $'+ job.maxSalary}" class="job-salary">fpt@gmail.com</td>
+                    <td class="job-description"><ul>
+                        <li th:each="item :${job.description}" th:text="${item}"></li>
+                    </ul>
+                    </td>
+                    <td class="other">
+                        <div>
+                            <a th:href="@{/jobs/edit/{id}(id=${job.id})}" class="edit-btn" data-tooltip="Edit"><i class="bi bi-pencil-square"></i></a>
+                            <a th:href="@{/jobs/delete/{id}(id=${job.id})}" class="delete-btn" data-tooltip="Delete"><i class="bi bi-trash"></i></a>
+
+                        </div>
+                        <div>
+                            <a th:href="|/jobs/${job.id}/applicants|"  class="view-applicant" data-tooltip="View applicants"><i class="bi bi-person-lines-fill" ></i></a>
+                            <a th:href="|/jobs/${job.id}/applicant/add|"  class="apply-job" data-tooltip="Apply job"><i class="bi bi-send-plus"></i></i></a>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

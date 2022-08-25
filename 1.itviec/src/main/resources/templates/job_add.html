@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: head('Trang chủ')">
+<body>
+<header>
+    <div class="wide">
+        <div class="header-content">
+            <div class="header-nav">
+                <a href="/"> <p th:text="#{home}"></p></a>
+                <a href="/jobs"> <p th:text="#{jobs}"></p></a>
+                <a href="/employers"> <p th:text="#{companies}"></p></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="job-edit-container">
+    <div class="wide">
+        <form action="#" th:action="@{/jobs/add}" th:object="${newJob}" method="post" name="employer"
+              enctype="multipart/form-data">
+            <div class="edit-heading">THÊM CÔNG VIỆC</div>
+
+            <div class="name input-moving-lable">
+                <input type="text" id="edit-name" th:field="*{title}" required/>
+                <label for="edit-name">Tiêu đề công việc *</label>
+            </div>
+
+            <div class="company">
+                <div class="group-header">Công ty *</div>
+                <select name="company" id="company"  th:field="*{companyId}">
+                    <option th:each="employer : ${employers}"
+                            th:text="${employer.companyName}"
+                            th:value="${employer.id}"
+                   >Outsourcing
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="skill">
+                <div class="group-header">Kĩ năng yêu cầu *</div>
+                <div class="type-content">
+                    <label th:each="skill: ${skills}">
+                        <input type="checkbox" th:value="${skill.name()}" th:field="*{skills}"
+                               name="company-type"/>
+                        <p th:text="${skill.skillType}">Product</p>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="location">
+                <div class="group-header">Nơi làm việc *</div>
+                <div class="location-content">
+                    <label th:each="location : ${locations}">
+                        <input type="checkbox" th:value="${location.name()}" th:field="*{locations}"
+                               name="company-location"/>
+                        <p th:text="${location.address}">Hà Nội</p>
+                    </label>
+
+                </div>
+            </div>
+
+          <div class="salary">
+            <div class="group-header">Mức Lương (USD) *</div>
+            <label>Từ: </label>
+            <input type="number" class="min-salary" value="500" th:field="*{minSalary}">
+            <label >Đến:</label>
+            <input type="number" class="max-salary" value="5000" th:field="*{maxSalary}">
+          </div>
+
+            <div class="desc">
+              <div class="group-header">Mô tả công việc *</div>
+              <textarea id="job-desc" name="job-desc" rows="6" cols="100" th:field="*{description}" required></textarea>
+
+            </div>
+
+            <div class="btn-submit">
+                <!--              <a href=""> -->
+                <button type="submit">Thêm</button>
+                <!--              </a>-->
+            </div>
+
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

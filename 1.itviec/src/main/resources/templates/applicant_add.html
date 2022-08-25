@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: head('Trang chủ')">
+<body>
+<header>
+  <div class="wide">
+    <div class="header-content">
+      <div class="header-nav">
+        <a href="/"> <p th:text="#{home}"></p></a>
+        <a href="/jobs"> <p th:text="#{jobs}"></p></a>
+        <a href="/employers"> <p th:text="#{companies}"></p></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="applicant-edit-container">
+  <div class="wide">
+    <form action="#" th:action="|/jobs/${jobId}/applicant/add|" th:object="${applicant}" method="post" name="applicant">
+      <div class="edit-heading">THÔNG TIN ỨNG TUYỂN</div>
+
+      <div class="name input-moving-lable">
+        <input type="text" id="edit-name" th:field="*{name}" required/>
+        <label for="edit-name">Họ và tên *</label>
+      </div>
+
+      <div class="name input-moving-lable">
+        <input type="email" id="edit-email" th:field="*{email}" required/>
+        <label for="edit-name">Email *</label>
+      </div>
+
+      <div class="name input-moving-lable">
+        <input type="tel" id="edit-phone" th:field="*{phone}" required/>
+        <label for="edit-name">Điện thoại *</label>
+      </div>
+
+      <div class="desc">
+        <div class="group-header">Mô tả kĩ năng *</div>
+        <textarea id="job-desc" name="job-desc" rows="6" cols="100" th:field="*{skill}" required></textarea>
+      </div>
+
+      <div class="btn-submit">
+        <!--              <a href=""> -->
+        <button type="submit">Gửi mail</button>
+        <!--              </a>-->
+      </div>
+
+
+    </form>
+  </div>
+</div>
+</body>
+</html>

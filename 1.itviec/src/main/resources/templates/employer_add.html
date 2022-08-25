@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: head('Trang chủ')">
+  <body>
+    <header>
+      <div class="wide">
+        <div class="header-content">
+          <div class="header-nav">
+              <a href="/"> <p th:text="#{home}"></p></a>
+              <a href="/jobs"> <p th:text="#{jobs}"></p></a>
+              <a href="/employers"> <p th:text="#{companies}"></p></a>
+          </div>
+            <div class="header-content-right">
+                <div class="language">
+                    <img src="/img/vi_flag.png" alt="" onclick="window.location.href='add?lang=vn'">
+                    <img src="/img/us_flag.png" alt="" onclick="window.location.href='add?lang=en'">
+                </div>
+
+            </div>
+
+        </div>
+      </div>
+    </header>
+
+    <div class="edit-container">
+      <div class="wide">
+        <form action="#" th:action="@{/employers/add}" th:object="${newEmployer}" method="post" name="employer" enctype="multipart/form-data">
+            <div class="edit-heading">THÊM THÔNG TIN CÔNG TY</div>
+            <div class="photo">
+                <div class="photo-header">Chọn hình ảnh</div>
+                <input type="file" class="form-controll" th:field="*{image}">
+            </div>
+
+          <div class="name input-moving-lable">
+            <input type="text" id="edit-name" th:field="*{companyName}" />
+            <label for="edit-name">Tên công ty *</label>
+          </div>
+
+          <div class="type">
+              <div class="type-header">Hình thức hoạt động *</div>
+              <div class="type-content">
+                  <label th:each="type: ${types}">
+                      <input type="radio" th:value="${type.name()}" th:field="*{companyType}" name="company-type" />
+                      <p th:text="${type.type}">Product</p>
+                  </label>
+
+              </div>
+          </div>
+
+          <div class="location">
+              <div class="location-header">Nơi làm việc *</div>
+              <div class="location-content">
+                  <label th:each="location : ${locations}">
+                      <input type="checkbox" th:value="${location.name()}" th:field="*{locations}" name="company-location" />
+                      <p th:text="${location.address}">Hà Nội</p>
+                  </label>
+
+              </div>
+          </div>
+          <div class="email input-moving-lable">
+            <input th:field="*{email}" type="text" id="edit-email" required />
+            <label for="edit-email">Email *</label>
+          </div>
+
+          <div class="btn-submit">
+<!--              <a href=""> -->
+                  <button type="submit">Thêm</button>
+<!--              </a>-->
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

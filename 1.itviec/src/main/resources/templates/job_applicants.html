@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: head('Trang chủ')">
+<body>
+<header>
+  <div class="wide">
+    <div class="header-content">
+      <div class="header-nav">
+        <a href="/"> <p th:text="#{home}"></p></a>
+        <a href="/jobs"> <p th:text="#{jobs}"></p></a>
+        <a href="/employers"> <p th:text="#{companies}"></p></a>
+      </div>
+
+      <div class="header-content-right">
+        <div class="search">
+          <form action="" th:action="@{/jobs}" method="get">
+            <input type="text" placeholder="keyword" name="keyword"/>
+            <button type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+<div class="jobs">
+
+  <div class="container job-applicant">
+    <div class="wide">
+      <div class="add-btn"><a th:href="|/jobs/${jobId}/applicant/add|">Thêm ứng viên</a></div>
+      <table>
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ và tên</th>
+          <th>Email</th>
+          <th>Số điện thoại</th>
+          <th>Mô tả kĩ năng</th>
+          <th>Khác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="applicant, iState : ${applicants}">
+          <td th:text="${iState.index}+1" class="number">1</td>
+          <td th:text="${applicant.name}" class="job-title">FPT software</td>
+          <td th:text="${applicant.email}" class="company-name">FPT software</td>
+          <td th:text="${applicant.phone}" class="job-skill">Product</td>
+          <td th:text="${applicant.skill}" class="job-location">Hà Nội, Hồ Chí Minh</td>
+          <td class="other">
+              <a th:href="|/jobs/${jobId}/applicants/delete/${applicant.id}|" class="delete-btn" data-tooltip="Delete"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>
